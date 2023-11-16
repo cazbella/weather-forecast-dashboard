@@ -1,7 +1,8 @@
+<<<<<<< HEAD
 var currentDate = dayjs(); // dayjs() gets today's date
   console.log(currentDate)
 
-  var APIKey = "66e478d3790b2fa410a64b9ae201d036";
+  var APIKey = "";
   var queryURL;
   //need weather we address +API key?
 
@@ -88,3 +89,6 @@ $("#search-button").on("click", function() {
 //make cards for each day dynamically createded using jquery. 
 
 9. //responsiveness - use percentages and media queries and flexbox or dynamically create bootstrap elements.  
+=======
+
+>>>>>>> parent of 0ba992b (Update index.js)
