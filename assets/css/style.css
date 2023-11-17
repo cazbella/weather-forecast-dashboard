@@ -1,1 +1,76 @@
+Css 08 
+
+/* font body style from last challenge */
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    line-height: 1;
+  }
+
+  /* header styling */
+.weather-header {
+    background: linear-gradient(to right, #466f9c, #0b3c70);
+    color: white;display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+
+  .container-fluid.weather-header {
+    width: 100%;
+    padding-right: 0;
+    padding-left: 0;
+    margin-right: auto;
+    margin-left: auto;
+  }
+
+  /* Add these styles to your CSS file */
+
+/* Adjust the styles for the input and button */
+.form-input {
+    width: 250px; /* Set the width to your desired size */
+    padding: 10px; /* Add padding for better visual appearance */
+    box-sizing: border-box; /* Include padding and border in the total width */
+    border: 1px solid #ccc; /* Add a border for clarity */
+    border-radius: 5px; /* Round the corners */
+    margin-bottom: 10px; 
+  }
+  
+  .search-button {
+    width: 250px; 
+    padding: 10px; 
+    box-sizing: border-box;
+    background-color: #466f9c;
+    color: white;
+    border-radius: 5px; 
+  }
+  
+  /* Optional: Add some styling to the input group for visual clarity */
+  .input-group {
+    display: flex;
+    flex-direction: column; /* Stack the input and button vertically */
+    align-items: flex-start; /* Align items to the left */
+  }
+  
+  
+ /* media query for header */
+  @media (max-width: 767px) {
+    .weather-header {
+      padding: 0.3rem;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .weather-header {
+      padding: 0.4rem;
+    }
+  }
+  
+/* for search boxes/button */
+@media (max-width: 600px) {
+    .form-input, .search-button {
+      width: 100%; /* Set the width to 100% for smaller screens */
+    }
+  }
+  
 
