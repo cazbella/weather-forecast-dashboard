@@ -1,16 +1,9 @@
-<<<<<<< HEAD
-Css 08 
-
-=======
->>>>>>> 4e327917e6d5ecfbb21b395a8e0c36513889dd6b
 /* font body style from last challenge */
 body {
     font-family: 'Open Sans', sans-serif;
     font-size: 18px;
     line-height: 1;
   }
-<<<<<<< HEAD
-
   /* header styling */
 .weather-header {
     background: linear-gradient(to right, #466f9c, #0b3c70);
@@ -76,10 +69,7 @@ body {
       width: 100%; /* Set the width to 100% for smaller screens */
     }
   }
-  
-=======
->>>>>>> 4e327917e6d5ecfbb21b395a8e0c36513889dd6b
-
+ 
   /* header styling */
 .weather-header {
     background: linear-gradient(to right, #466f9c, #0b3c70);

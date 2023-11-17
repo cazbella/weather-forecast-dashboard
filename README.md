@@ -2,6 +2,9 @@
 
 A weather dashboard that runs in the browser and feature dynamically updated HTML and CSS.
 
+# Intention??
+One of the hardest things was getting used to API keys and dealing with security issues
+
 # Usage
 
 Create a weather dashboard with form inputs.
