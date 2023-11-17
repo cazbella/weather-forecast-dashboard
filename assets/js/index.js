@@ -63,7 +63,7 @@ $("#search-button").on("click", function(event) {
 });
 
 function getCurrentWeather(cityName) {
-   var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey;
+   var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=metric" 
 
    console.log(queryURL);
    
@@ -71,7 +71,10 @@ function getCurrentWeather(cityName) {
    .then(function(response){
       return response.json();
    }).then(function(data){ //waiting for response to be returned to json. can give any name. data is what comes back from the fetch url
-      document.getElementById("today").textContent = JSON.stringify(data)
+     var sectionToday = document.getElementById("today");
+     var headerEl = document.createElement("h1");
+     headerEl.textContent = "hello";
+     sectionToday.appendChild(headerEl);
       console.log(data);
     
    })
