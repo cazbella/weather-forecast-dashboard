@@ -1,29 +1,15 @@
 var rightNow = dayjs().format('D/MM/YY');
 var apiKey = "a9d0a4b993a8b96a9f1390ab52f8f26a";
 var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + "London" + "&appid=" + apiKey;
-// var queryURL = "https://api.openweathermap.org/data/2.5/forecast?id=524901&appid=" + apiKey
-//is it city name or user input??
+
 // // var defaultCity = 'London'???
-// 
+// upon page load???
 // var iconCode = data.weather[0].icon;???
-// var temperature = data.main.temp;???
-// var humidity = data.main.humidity;????
-// var windSpeed = data.wind.speed;????
-
-
-
-3. //JavaScript 
-   //handle user input and make API requests.
-   //Retrieve city coordinates by making a Geocoding API call using the city name.
+//coordinates????
 
 4. //Fetch Weather Data
    //Use the obtained coordinates to make a request to the 5 Day Weather Forecast API.
-   //Extract and display relevant information like city name, date, weather conditions, temperature, humidity, and wind speed.
-
-5. //LocalStorage for Search History
-   //Store the searched cities in the localStorage
-   //Display the search history on the dashboard?
-   //setItem and getItem 
+   //parse and display relevant information like city name, date, weather conditions, temperature, humidity, and wind speed.
 
    //code similar to last challenge to local storage
    function saveCityInput(city) {
@@ -36,6 +22,22 @@ var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + "London" +
 
       localStorage.setItem("searchHistory", JSON.stringify(cityHistory));
    }
+
+   //load history to keep buttons on the page
+   $(document).ready(function () {
+      var cityHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+  
+      // Loop through the search history and create buttons for each city
+      for (var i = 0; i < cityHistory.length; i++) {
+          var historyButton = $("<button>")
+              .addClass("btn btn-secondary history-button")
+              .text(cityHistory[i]);
+  
+          // Append the button to the search history container
+          $("#history").prepend(historyButton);
+      }
+  });
+  
    
 // Event listener for the search button
 $("#search-button").on("click", function(event) {
@@ -61,6 +63,17 @@ $("#search-button").on("click", function(event) {
    getCurrentWeather(city);
    
 });
+// Event listener for the clear history button
+$("#clear-history-button").on("click", function () {
+   // Clear the search history in localStorage
+   localStorage.removeItem("searchHistory");
+
+   console.log("Attempting to remove history buttons");
+
+   // Removes the search history buttons
+   $("#history").find(".history-button").remove();
+});
+
 
 function getCurrentWeather(cityName) {
    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=metric" 
@@ -71,13 +84,47 @@ function getCurrentWeather(cityName) {
    .then(function(response){
       return response.json();
    }).then(function(data){ //waiting for response to be returned to json. can give any name. data is what comes back from the fetch url
-     var sectionToday = document.getElementById("today");
-     var headerEl = document.createElement("h1");
-     headerEl.textContent = "hello";
-     sectionToday.appendChild(headerEl);
+     var sectionToday = $("#today");
+   //   var headerEl = document.createElement("h1");
+   //   headerEl.textContent = cityName;
+   //   sectionToday.appendChild(headerEl);
+   sectionToday.empty();
+
+      // make Bootstrap card
+      var card = $("<div>").addClass("card");
+      // make card body
+      var cardBody = $("<div>").addClass("card-body");
+      // card title with the city name
+      var cardTitle = $("<h5>").addClass("card-title").text(cityName);
+
+      // variables for info
+      var temperature = data.main.temp;
+      var humidity = data.main.humidity;
+      var windSpeed = data.wind.speed;
+
+      console.log("wind speed" + windSpeed);
+
+      // Creates paragraphs for the weather info
+      var temperatureParagraph = $("<p>").text("Temperature: " + temperature + " °C");
+      var humidityParagraph = $("<p>").text("Humidity: " + humidity + "%");
+      var windSpeedParagraph = $("<p>").text("Wind Speed: " + windSpeed + " m/s");
+
+      // Appends elements to the card body
+      cardBody.append(cardTitle, temperatureParagraph, humidityParagraph, windSpeedParagraph);
+
+      // Append card body to the card
+      card.append(cardBody);
+
+      // Appends the card to the "today" html
+      sectionToday.append(card);
+
+
       console.log(data);
     
    })
+   .catch(function(error) {
+      console.log("Error fetching weather data: " + error);
+   });
 }
 
 6. //Display 5-Day Forecast

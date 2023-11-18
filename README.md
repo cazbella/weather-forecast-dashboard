@@ -35,3 +35,4 @@ The weather app includes a search option, a list of cities, and a five-day forec
 # References 
 reset css stylesheet
 https://meyerweb.com/eric/tools/css/reset/
+https://getbootstrap.com/docs/5.0/components/buttons/
