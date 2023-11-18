@@ -36,3 +36,5 @@ The weather app includes a search option, a list of cities, and a five-day forec
 reset css stylesheet
 https://meyerweb.com/eric/tools/css/reset/
 https://getbootstrap.com/docs/5.0/components/buttons/
+https://stackoverflow.com/questions/73672814/dynamic-bootstrap-cards-with-javascript
+https://www.pluralsight.com/blog/data-professional/using-jquery-css-method

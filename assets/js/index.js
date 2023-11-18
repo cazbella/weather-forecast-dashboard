@@ -1,6 +1,8 @@
 var rightNow = dayjs().format('D/MM/YY');
-var apiKey = "a9d0a4b993a8b96a9f1390ab52f8f26a";
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + "London" + "&appid=" + apiKey;
+var apiKey = "a66e478d3790b2fa410a64b9ae201d036";
+
+// var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + "London" + "&appid=" + apiKey;
+
 
 // // var defaultCity = 'London'???
 // upon page load???
@@ -25,23 +27,50 @@ var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + "London" +
 
    //load history to keep buttons on the page
    $(document).ready(function () {
-      var cityHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+      // var cityHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
   
-      // Loop through the search history and create buttons for each city
-      for (var i = 0; i < cityHistory.length; i++) {
-          var historyButton = $("<button>")
-              .addClass("btn btn-secondary history-button")
-              .text(cityHistory[i]);
+      // // Loop through the search history and create buttons for each city
+      // for (var i = 0; i < cityHistory.length; i++) {
+      //     var historyButton = $("<button>")
+      //         .addClass("btn btn-secondary history-button")
+      //         .text(cityHistory[i])
+      //         .on("click", function (event) {
+      //          //stops page refreshing here
+      //          event.preventDefault();
+      //          // button click event for history buttons
+      //          var cityName = $(this).text();
+      //          //runs function based on 
+      //          getCurrentWeather(cityName);
+      //       });
   
-          // Append the button to the search history container
-          $("#history").prepend(historyButton);
-      }
+      //     // Append the button to the search history container
+      //     $("#history").prepend(historyButton);
+      // }
+      // Load history to keep buttons on the page
+var cityHistory = JSON.parse(localStorage.getItem("searchHistory")) || [];
+
+// Loop through the search history and create buttons for each city
+for (var i = 0; i < cityHistory.length; i++) {
+    var historyButton = $("<button>")
+        .addClass("btn btn-secondary history-button")
+        .text(cityHistory[i]);
+
+    // Append the button to the search history container
+    $("#history").prepend(historyButton);
+}
+$("#history").on("click", ".history-button", function (event) {
+   event.preventDefault();
+   var cityName = $(this).text();
+   getCurrentWeather(cityName);
+   getWeatherForecast(cityName);
+});
   });
   
    
 // Event listener for the search button
 $("#search-button").on("click", function(event) {
    event.preventDefault();
+   console.log("search button clicked")
    var city = $("#search-input").val();
 
    // Perform the search 
@@ -61,6 +90,7 @@ $("#search-button").on("click", function(event) {
     // Append the button to the search history container
     $("#history").prepend(historyButton);
    getCurrentWeather(city);
+   getWeatherForecast(city);
    
 });
 // Event listener for the clear history button
@@ -79,15 +109,14 @@ function getCurrentWeather(cityName) {
    var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&appid=" + apiKey + "&units=metric" 
 
    console.log(queryURL);
+   console.log("getCurrentWeather clicked");
    
    fetch (queryURL)
    .then(function(response){
       return response.json();
    }).then(function(data){ //waiting for response to be returned to json. can give any name. data is what comes back from the fetch url
      var sectionToday = $("#today");
-   //   var headerEl = document.createElement("h1");
-   //   headerEl.textContent = cityName;
-   //   sectionToday.appendChild(headerEl);
+  
    sectionToday.empty();
 
       // make Bootstrap card
@@ -95,12 +124,13 @@ function getCurrentWeather(cityName) {
       // make card body
       var cardBody = $("<div>").addClass("card-body");
       // card title with the city name
-      var cardTitle = $("<h5>").addClass("card-title").text(cityName);
+      var cardTitle = $("<h1>").addClass("card-title").text( cityName + " " + rightNow);
 
       // variables for info
       var temperature = data.main.temp;
       var humidity = data.main.humidity;
       var windSpeed = data.wind.speed;
+      var iconCode = data.weather[0].icon;
 
       console.log("wind speed" + windSpeed);
 
@@ -108,9 +138,12 @@ function getCurrentWeather(cityName) {
       var temperatureParagraph = $("<p>").text("Temperature: " + temperature + " °C");
       var humidityParagraph = $("<p>").text("Humidity: " + humidity + "%");
       var windSpeedParagraph = $("<p>").text("Wind Speed: " + windSpeed + " m/s");
+      var iconUrl = "https://openweathermap.org/img/w/" + iconCode + ".png";
+      var iconImage = $("<img>").attr("src", iconUrl).attr("alt", "Weather Icon");
+
 
       // Appends elements to the card body
-      cardBody.append(cardTitle, temperatureParagraph, humidityParagraph, windSpeedParagraph);
+      cardBody.append(cardTitle, iconImage, temperatureParagraph, humidityParagraph, windSpeedParagraph);
 
       // Append card body to the card
       card.append(cardBody);
@@ -127,6 +160,68 @@ function getCurrentWeather(cityName) {
    });
 }
 
+function getWeatherForecast(cityName) {
+   var sectionForecast = $("#forecast");
+   var queryURLForecast = "https://api.openweathermap.org/data/2.5/forecast?q=" + cityName + "&appid=" + apiKey + "&units=metric";
+   console.log(queryURLForecast);
+   console.log("getWeatherForecast clicked");
+
+   fetch(queryURLForecast)
+       .then(function (response) {
+           return response.json();
+       }).then(function (data) {
+           sectionForecast.empty();
+
+           // Clear the existing content in the forecast section
+           // event.preventDefault();
+           var forecastRow = $("<div>").addClass("row");
+
+           // Loop through the forecast data to get every 8th entry
+           // dan told us this in class
+           for (var i = 0; i < data.list.length; i += 8) {
+               var forecastData = data.list[i];
+               var forecastDate = dayjs(forecastData.dt_txt).format('D/MM/YY');
+               var forecastIconCode = forecastData.weather[0].icon;
+               var forecastMinTemp = forecastData.main.temp_min;
+               var forecastMaxTemp = forecastData.main.temp_max;
+               var forecastHumidity = forecastData.main.humidity;
+
+               console.log("new forecast data" + forecastData);
+
+               // Create Bootstrap card
+               var card = $("<div>").addClass("card col-md-2 mx-2 mb-2");
+               // Create card body
+               var cardBody = $("<div>").addClass("card-body");
+               // Card title with the date
+               var cardTitle = $("<h5>").addClass("card-title").text(forecastDate);
+               // Create an image element for the weather icon
+               var iconUrl = "https://openweathermap.org/img/w/" + forecastIconCode + ".png";
+               var iconImage = $("<img>").attr("src", iconUrl).attr("alt", "Weather Icon");
+               // Create paragraphs for the weather info
+               var minTempParagraph = $("<p>").text("Min Temp: " + forecastMinTemp + " °C");
+               var maxTempParagraph = $("<p>").text("Max Temp: " + forecastMaxTemp + " °C");
+               var humidityParagraph = $("<p>").text("Humidity: " + forecastHumidity + "%");
+
+               // Append elements to the card body
+               cardBody.append(cardTitle, iconImage, minTempParagraph, maxTempParagraph, humidityParagraph);
+               // Append card body to the card
+               card.append(cardBody);
+
+               // Append the column to the row
+               forecastRow.append(card);
+           }
+
+           // Append the row to the "forecast" section
+           sectionForecast.append(forecastRow);
+
+           console.log(data);
+       })
+       .catch(function (error) {
+           console.log("Error fetching forecast data: " + error);
+       });
+}
+
+//waiting for response to be returned to json. can give any na
 6. //Display 5-Day Forecast
    //Parse the API response to show the 5-day forecast with date, weather conditions, temperature, and humidity
 
