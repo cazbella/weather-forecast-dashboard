@@ -53,9 +53,6 @@ body {
     align-items: center !important;
 }
 
-
-
-
 #today {
   display: inline-block;
   vertical-align: top; 
@@ -82,8 +79,6 @@ body {
   white-space: normal;
 }
 
-
-
 .forecastcard {
   max-width: 50px;
   /* width: 100%;  */
@@ -96,4 +91,3 @@ body {
   padding-right: 13rem;
   margin-top: 3rem;
 }
-
