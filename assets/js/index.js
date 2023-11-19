@@ -1,5 +1,8 @@
 var rightNow = dayjs().format('D/MM/YY');
-var apiKey = "a66e478d3790b2fa410a64b9ae201d036";
+var apiKey = "c44f9b2e93a173784fe4ba28b66d5418";
+
+console.log("API Key: " + apiKey);
+
 
 // var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + "London" + "&appid=" + apiKey;
 
@@ -202,16 +205,16 @@ function getWeatherForecast(cityName) {
                var maxTempParagraph = $("<p>").text("Max Temp: " + forecastMaxTemp + " °C");
                var humidityParagraph = $("<p>").text("Humidity: " + forecastHumidity + "%");
 
-               // Append elements to the card body
+               // Appends elements to the card body
                cardBody.append(cardTitle, iconImage, minTempParagraph, maxTempParagraph, humidityParagraph);
                // Append card body to the card
                card.append(cardBody);
 
-               // Append the column to the row
+               // Appends the column to the row
                forecastRow.append(card);
            }
 
-           // Append the row to the "forecast" section
+           // Appends the row to the "forecast" section
            sectionForecast.append(forecastRow);
 
            console.log(data);
