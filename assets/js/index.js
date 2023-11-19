@@ -175,12 +175,10 @@ function getWeatherForecast(cityName) {
        }).then(function (data) {
            sectionForecast.empty();
 
-           // Clear the existing content in the forecast section
-           // event.preventDefault();
+           // Create a Bootstrap row
            var forecastRow = $("<div>").addClass("row");
 
            // Loop through the forecast data to get every 8th entry
-           // dan told us this in class
            for (var i = 0; i < data.list.length; i += 8) {
                var forecastData = data.list[i];
                var forecastDate = dayjs(forecastData.dt_txt).format('D/MM/YY');
@@ -191,8 +189,11 @@ function getWeatherForecast(cityName) {
 
                console.log("new forecast data" + forecastData);
 
+               // Create Bootstrap column
+               var cardColumn = $("<div>").addClass("col-md-2");
+
                // Create Bootstrap card
-               var card = $("<div>").addClass("card col-md-2 mx-2 mb-2");
+               var card = $("<div>").addClass("card mb-2 forecastcard");
                // Create card body
                var cardBody = $("<div>").addClass("card-body");
                // Card title with the date
@@ -210,8 +211,11 @@ function getWeatherForecast(cityName) {
                // Append card body to the card
                card.append(cardBody);
 
-               // Appends the column to the row
-               forecastRow.append(card);
+               // Append the card to the column
+               cardColumn.append(card);
+
+               // Append the column to the row
+               forecastRow.append(cardColumn);
            }
 
            // Appends the row to the "forecast" section
@@ -224,21 +228,10 @@ function getWeatherForecast(cityName) {
        });
 }
 
-//waiting for response to be returned to json. can give any na
-6. //Display 5-Day Forecast
-   //Parse the API response to show the 5-day forecast with date, weather conditions, temperature, and humidity
 
-7. //Handle Search History Click
-   //Implement functionality to handle clicks on the search history
-   //dynamically create buttons 'in the other div' '.list-group #history' that can also be clicked with event listener to fetch api and append/display 5 day forecast
-   //Display the weather information for the selected city
+
 
 8. //autofill for city names? is there a way to get a list of names to correspond with weather api? 
-//make cards for each day dynamically createded using jquery. 
 
-9. //responsiveness - use percentages and media queries and flexbox or dynamically create bootstrap elements.  
-
-//fetch from open weather API
-//need to adapt this for today
-//find path from open weather API
+9. //responsiveness?? Struggling here! - use percentages and media queries and flexbox or dynamically create bootstrap elements.  
 

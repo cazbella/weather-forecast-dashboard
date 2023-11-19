@@ -75,5 +75,25 @@ body {
 .card-body {
   text-align: left;
   color: black; 
+  
+}
+
+.card-body p {
+  white-space: normal;
+}
+
+
+
+.forecastcard {
+  max-width: 50px;
+  /* width: 100%;  */
+  margin-top: 10px; 
+  border: 1px solid #0b3c70;
+  color: aquamarine;
+  border-radius: 1rem;
+  padding: 15px;
+  padding-top: 1rem;
+  padding-right: 13rem;
+  margin-top: 3rem;
 }
 

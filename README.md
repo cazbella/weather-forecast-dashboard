@@ -3,7 +3,7 @@
 A weather dashboard that runs in the browser and feature dynamically updated HTML and CSS.
 
 # Intention??
-One of the hardest things was getting used to API keys and dealing with security issues
+One of the hardest things was getting used to API keys and dealing with security issues. 
 
 # Usage
 
@@ -31,6 +31,11 @@ Mock-Up
 The following image shows the web application's appearance and functionality:
 
 The weather app includes a search option, a list of cities, and a five-day forecast and current weather conditions for London.
+
+__A Note about Bootstrap__
+_____________________________
+
+Although we studied bootstrap in class, the implications of classes and versions are just becomming apparent to me by working with it. I need to work further with the classes and versions on this project in order to learn more about bootstrap and responsiveness. 
 
 # References 
 reset css stylesheet
