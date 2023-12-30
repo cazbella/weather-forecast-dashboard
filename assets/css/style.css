@@ -91,3 +91,16 @@ body {
   padding-right: 13rem;
   margin-top: 3rem;
 }
+
+/* Add a media query for screens with a maximum width of 768px (adjust as needed) */
+@media (max-width: 1309px) {
+  .forecastcard {
+    max-width: 100%; /* Set the maximum width to 100% for smaller screens */
+    padding-right: 1rem; /* Adjust padding to your preference */
+  }
+
+  .col-md-2 {
+    /* Adjust the column width for smaller screens */
+    width: 50%; /* Display two columns side by side on smaller screens */
+  }
+}
